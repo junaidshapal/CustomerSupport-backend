@@ -9,6 +9,8 @@
         public DateTime CreatedOn { get; set; }
         public string ModifiedBy { get; set; } = string.Empty;
         public DateTime ModifiedOn { get; set; }
+        //public Ticket Ticket { get; set; }
+
 
     }
 }

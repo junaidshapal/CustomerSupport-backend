@@ -11,6 +11,7 @@
         public string ModifiedBy { get; set;} = string.Empty;
         public string AssignedTo { get; set; } = string.Empty;
         public int Status { get; set; }
+        public ICollection<TicketComment> Comments { get; set; } = new List<TicketComment>();
 
     }
 }
