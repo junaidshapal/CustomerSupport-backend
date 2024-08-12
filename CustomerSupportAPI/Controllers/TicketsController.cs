@@ -114,7 +114,8 @@ namespace CustomerSupportAPI.Controllers
             {
                 return NotFound();
             }
-            var ticket = await _context.Tickets.FindAsync(id);
+            //var ticket = await _context.Tickets.FindAsync(id);
+            var ticket = await _context.Tickets.Include(t => t.Comments).FirstOrDefaultAsync(t => t.Id == id);
             if (ticket == null)
             {
                 return NotFound();
