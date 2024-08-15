@@ -54,40 +54,42 @@ namespace CustomerSupportAPI.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTicketComment(int id, TicketComment ticketComment)
-                {
+        {
             if (id != ticketComment.Id)
             {
                 return BadRequest();
             }
 
-            //var existingComment = await _context.TicketComment.FindAsync(id);
-            //if (existingComment == null)
+            var existingComment = await _context.TicketComment.FindAsync(id);
+            if (existingComment == null)
+            {
+                return NotFound("Comment not found");
+            }
+
+
+            existingComment.CommentMessage = ticketComment.CommentMessage;
+            existingComment.ModifiedBy = ticketComment.ModifiedBy;
+            existingComment.ModifiedOn = DateTime.UtcNow;
+
+            _context.Entry(existingComment).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            //try
             //{
-            //    return NotFound("Comment not found");
+            //    await _context.SaveChangesAsync();
             //}
-      
-
-            //existingComment.CommentMessage = ticketComment.CommentMessage;
-            //existingComment.ModifiedBy = ticketComment.ModifiedBy;
-            //existingComment.ModifiedOn = DateTime.UtcNow;
-
-            _context.Entry(ticketComment).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TicketCommentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!TicketCommentExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
             return NoContent();
         }
