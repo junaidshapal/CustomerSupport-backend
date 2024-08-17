@@ -62,28 +62,45 @@ namespace CustomerSupportAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTicket(int id, Ticket ticket)
         {
-            if (id != ticket.Id)
+            var existingTicket = await _context.Tickets.FindAsync(id);
+
+            if (existingTicket == null)
             {
-                return BadRequest();
+                return NotFound();
+            }
+            //if (id != ticket.Id)
+            //{
+            //    return BadRequest();
+            //}
+
+            var changes = new Dictionary<string, string>();
+
+            if (existingTicket.Title != ticket.Title)
+            {
+                changes.Add("Title", ticket.Title);
             }
 
-            _context.Entry(ticket).State = EntityState.Modified;
+            if (existingTicket.Description != ticket.Description)
+            {
+                changes.Add("Description", ticket.Description);
+            }
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TicketExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            //_context.Entry(ticket).State = EntityState.Modified;
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!TicketExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
             return NoContent();
         }
