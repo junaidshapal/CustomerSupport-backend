@@ -1,4 +1,6 @@
-﻿namespace CustomerSupportAPI.Models
+﻿using CustomerSupportAPI.Enums;
+
+namespace CustomerSupportAPI.Models
 {
     public class Ticket
     {
@@ -10,7 +12,7 @@
         public DateTime ModifiedDate { get; set;}
         public string ModifiedBy { get; set;} = string.Empty;
         public string AssignedTo { get; set; } = string.Empty;
-        public int Status { get; set; }
+        public int Status { get; set; }    
         public ICollection<TicketComment> Comments { get; set; } = new List<TicketComment>();
 
     }

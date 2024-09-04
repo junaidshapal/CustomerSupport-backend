@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CustomerSupportAPI.Data;
 using CustomerSupportAPI.Models;
 using CustomerSupportAPI.DataTransferObjects;
+using CustomerSupportAPI.Enums;
 
 namespace CustomerSupportAPI.Controllers
 {
@@ -57,6 +58,18 @@ namespace CustomerSupportAPI.Controllers
             return ticket;
         }
 
+        //public async Task<ActionResult<IEnumerable<Ticket>>> SearchTickets(string name)
+        //{
+        //    if(string.IsNullOrWhiteSpace(name))
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var tickets = await _context.Tickets.Where(t => t.Title.Contains(name)).ToListAsync();
+
+        //    return Ok(tickets);
+        //}
+
         // PUT: api/Tickets/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -73,34 +86,41 @@ namespace CustomerSupportAPI.Controllers
             //    return BadRequest();
             //}
 
-            var changes = new Dictionary<string, string>();
+            //var changes = new Dictionary<string, string>();
 
-            if (existingTicket.Title != ticket.Title)
-            {
-                changes.Add("Title", ticket.Title);
-            }
+            //if (existingTicket.Title != ticket.Title)
+            //{
+            //    changes.Add("Title", ticket.Title);
+            //}
 
-            if (existingTicket.Description != ticket.Description)
-            {
-                changes.Add("Description", ticket.Description);
-            }
+            //if (existingTicket.Description != ticket.Description)
+            //{
+            //    changes.Add("Description", ticket.Description);
+            //}
 
             //_context.Entry(ticket).State = EntityState.Modified;
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!TicketExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
+            //await _context.SaveChangesAsync();
+
+            existingTicket.Title = ticket.Title;
+            existingTicket.Description = ticket.Description;
+            existingTicket.AssignedTo = ticket.AssignedTo;
+            existingTicket.Status = ticket.Status;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TicketExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return NoContent();
         }
@@ -115,8 +135,13 @@ namespace CustomerSupportAPI.Controllers
               return Problem("Entity set 'ApplicationDbContext.Tickets'  is null.");
           }
 
-            //ticket.Status = (int)Enums.TicketStatus.InProgress;
-            ticket.Status = (int)Enums.TicketStatus.Completed;
+          //if(ticket.Status == Enums.TicketStatus.Unknown)
+          //  {
+          //      ticket.Status = Enums.TicketStatus.InProgress;
+          //      }
+
+            ticket.Status = (int)Enums.TicketStatus.InProgress;
+            //ticket.Status = (int)Enums.TicketStatus.Completed;
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
 
