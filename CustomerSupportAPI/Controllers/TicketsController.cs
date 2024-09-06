@@ -63,7 +63,7 @@ namespace CustomerSupportAPI.Controllers
         //    if(string.IsNullOrWhiteSpace(name))
         //    {
         //        return NotFound();
-        //    }
+        //    }         
 
         //    var tickets = await _context.Tickets.Where(t => t.Title.Contains(name)).ToListAsync();
 
@@ -135,13 +135,15 @@ namespace CustomerSupportAPI.Controllers
               return Problem("Entity set 'ApplicationDbContext.Tickets'  is null.");
           }
 
-          //if(ticket.Status == Enums.TicketStatus.Unknown)
-          //  {
-          //      ticket.Status = Enums.TicketStatus.InProgress;
-          //      }
+            //if(ticket.Status == Enums.TicketStatus.Unknown)
+            //  {
+            //      ticket.Status = Enums.TicketStatus.InProgress;
+            //      }
 
-            ticket.Status = (int)Enums.TicketStatus.InProgress;
+            //ticket.Status = (int)Enums.TicketStatus.InProgress;
             //ticket.Status = (int)Enums.TicketStatus.Completed;
+
+            ticket.Status = ticket.Status;
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
 

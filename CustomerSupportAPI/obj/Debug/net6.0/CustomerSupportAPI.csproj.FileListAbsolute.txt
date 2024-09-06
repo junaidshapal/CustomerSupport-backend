@@ -28,7 +28,6 @@ E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
-E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.Design.dll
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
@@ -264,3 +263,10 @@ E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.pdb
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.genruntimeconfig.cache
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\ref\CustomerSupportAPI.dll
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.AspNet.Identity.Core.dll
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
