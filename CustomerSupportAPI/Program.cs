@@ -64,8 +64,8 @@ app.UseRouting();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 
 // Use the CORS policy
