@@ -71,6 +71,10 @@ app.UseAuthorization();
 // Use the CORS policy
 app.UseCors("AllowAll");
 
-app.MapControllers();
+//app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.Run();
