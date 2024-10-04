@@ -9,6 +9,7 @@ using CustomerSupportAPI.Data;
 using CustomerSupportAPI.Models;
 using CustomerSupportAPI.DataTransferObjects;
 using CustomerSupportAPI.Enums;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CustomerSupportAPI.Controllers
 {
@@ -24,7 +25,8 @@ namespace CustomerSupportAPI.Controllers
         }
 
         // GET: api/Tickets
-        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        [HttpGet("admin")]
         public async Task<ActionResult<IEnumerable<Ticket>>> GetTickets()
         {
           if (_context.Tickets == null)
@@ -33,8 +35,8 @@ namespace CustomerSupportAPI.Controllers
           }
             var list = await _context.Tickets.ToListAsync();
 
-            
             return list;
+
         }
 
         // GET: api/Tickets/5

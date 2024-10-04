@@ -1,4 +1,5 @@
-﻿using CustomerSupportAPI.Models;
+﻿using CustomerSupportAPI.Data;
+using CustomerSupportAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,12 +21,16 @@ namespace CustomerSupportAPI.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IConfiguration _configuration; 
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AuthController(UserManager<IdentityUser> userManager,IConfiguration configuration, SignInManager<IdentityUser> signInManager)
+        public AuthController(UserManager<IdentityUser> userManager,IConfiguration configuration, SignInManager<IdentityUser> signInManager,
+            RoleManager<IdentityRole> roleManager)
+
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _configuration = configuration;
+            _roleManager = roleManager;
 
         }
 
@@ -44,6 +49,12 @@ namespace CustomerSupportAPI.Controllers
 
                     if (result.Succeeded)
                     {
+                        if(!await _roleManager.RoleExistsAsync(model.Role))
+                        {
+                            await _roleManager.CreateAsync(new IdentityRole(model.Role));
+                        }
+
+                        await _userManager.AddToRoleAsync(user, model.Role);
                         return Ok(model);
                     }
 
@@ -64,16 +75,32 @@ namespace CustomerSupportAPI.Controllers
         public async Task<IActionResult> Login([FromBody] LoginModel login)
         {
             var user = await _userManager.FindByNameAsync(login.UserName);
+            if(user == null)
+            {
+                return Unauthorized("User is null here");
+            }
             var loginResult = await _userManager.CheckPasswordAsync(user, login.Password);
 
-            if (user != null && loginResult)
+            if (!loginResult)
             {
-                var authClaims = new[]
+                return Unauthorized("Password is not correct");
+            }
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            //if (user != null && loginResult)
+            //{
+                var authClaims = new List<Claim>
                 {
                     new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(ClaimTypes.NameIdentifier, user.Id)
                 };
+
+            foreach (var role in userRoles)
+            {
+                authClaims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@123"));
                 var token = new JwtSecurityToken(
@@ -91,7 +118,7 @@ namespace CustomerSupportAPI.Controllers
                 });
             }
 
-            return Unauthorized();
-        }
+            //return Unauthorized();
+       // }
     }
 }
