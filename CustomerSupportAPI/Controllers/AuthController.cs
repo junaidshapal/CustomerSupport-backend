@@ -18,12 +18,12 @@ namespace CustomerSupportAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _configuration; 
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AuthController(UserManager<IdentityUser> userManager,IConfiguration configuration, SignInManager<IdentityUser> signInManager,
+        public AuthController(UserManager<User> userManager,IConfiguration configuration, SignInManager<User> signInManager,
             RoleManager<IdentityRole> roleManager)
 
         {
@@ -44,7 +44,7 @@ namespace CustomerSupportAPI.Controllers
             {
                 if(ModelState.IsValid)
                 {
-                    var user = new IdentityUser { UserName = model.Email, Email = model.Email };
+                    var user = new User { UserName = model.Email, Email = model.Email };
                     var result = await _userManager.CreateAsync(user, model.Password);
 
                     if (result.Succeeded)
@@ -92,6 +92,7 @@ namespace CustomerSupportAPI.Controllers
             //{
                 var authClaims = new List<Claim>
                 {
+                    new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(ClaimTypes.NameIdentifier, user.Id)

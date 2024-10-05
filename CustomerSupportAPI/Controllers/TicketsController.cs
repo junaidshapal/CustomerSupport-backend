@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CustomerSupportAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TicketsController : ControllerBase
@@ -25,28 +26,41 @@ namespace CustomerSupportAPI.Controllers
         }
 
         // GET: api/Tickets
-        [Authorize(Roles = "Admin")]
-        [HttpGet("admin")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Ticket>>> GetTickets()
         {
-          if (_context.Tickets == null)
-          {
-              return NotFound();
-          }
-            var list = await _context.Tickets.ToListAsync();
-
+            if (_context.Tickets == null)
+            {
+                return NotFound();
+            }
+            var list = await GetRoleBasedTicketsAsync();
             return list;
 
+        }
+
+        private async Task<List<Ticket>> GetRoleBasedTicketsAsync()
+        {
+            var list = await _context.Tickets.ToListAsync();
+            if (User.IsInRole("Customer"))
+            {
+                var username = User.Identity.Name;
+                var user = await _context.Users.Where(x => x.UserName == username).FirstOrDefaultAsync();
+                var userId = user.Id;
+                list = list.Where(x => x.CreatedBy == userId || x.AssignedTo == userId).ToList();
+
+            }
+
+            return list;
         }
 
         // GET: api/Tickets/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Ticket>> GetTicket(int id)
         {
-          if (_context.Tickets == null)
-          {
-              return NotFound();
-          }
+            if (_context.Tickets == null)
+            {
+                return NotFound();
+            }
 
             var ticket = await _context.Tickets.Include(t => t.Comments).FirstOrDefaultAsync(t => t.Id == id);
 
@@ -132,10 +146,10 @@ namespace CustomerSupportAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Ticket>> PostTicket(Ticket ticket)
         {
-          if (_context.Tickets == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.Tickets'  is null.");
-          }
+            if (_context.Tickets == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Tickets'  is null.");
+            }
 
             //if(ticket.Status == Enums.TicketStatus.Unknown)
             //  {
