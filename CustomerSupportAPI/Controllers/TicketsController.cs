@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CustomerSupportAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TicketsController : ControllerBase
