@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CustomerSupportAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TicketsController : ControllerBase
@@ -45,12 +45,17 @@ namespace CustomerSupportAPI.Controllers
             {
                 var username = User.Identity.Name;
                 var user = await _context.Users.Where(x => x.UserName == username).FirstOrDefaultAsync();
-                var userId = user.Id;
-                list = list.Where(x => x.CreatedBy == userId || x.AssignedTo == userId).ToList();
+                if (user != null)
+                {
+                    var userId = user.Id;
+                   list = list.Where(x => x.CreatedBy == userId || x.AssignedTo == userId).ToList();
+                   //return await _context.Tickets.Where(x => x.CreatedDate == userId  || x.AssignedTo== userId).ToListAsync();
+                }
 
             }
 
-            return list;
+            //return await _context.Tickets.ToListAsync();
+           return list;
         }
 
         // GET: api/Tickets/5
