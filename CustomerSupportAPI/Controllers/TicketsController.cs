@@ -49,12 +49,9 @@ namespace CustomerSupportAPI.Controllers
                 {
                     var userId = user.Id;
                    list = list.Where(x => x.CreatedBy == userId || x.AssignedTo == userId).ToList();
-                   //return await _context.Tickets.Where(x => x.CreatedDate == userId  || x.AssignedTo== userId).ToListAsync();
                 }
 
             }
-
-            //return await _context.Tickets.ToListAsync();
            return list;
         }
 
