@@ -10,6 +10,7 @@ using CustomerSupportAPI.Models;
 using CustomerSupportAPI.DataTransferObjects;
 using CustomerSupportAPI.Enums;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace CustomerSupportAPI.Controllers
 {
@@ -43,16 +44,27 @@ namespace CustomerSupportAPI.Controllers
             var list = await _context.Tickets.ToListAsync();
             if (User.IsInRole("Customer"))
             {
-                var username = User.Identity.Name;
-                var user = await _context.Users.Where(x => x.UserName == username).FirstOrDefaultAsync();
-                if (user != null)
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (User == null)
                 {
-                    var userId = user.Id;
-                   list = list.Where(x => x.CreatedBy == userId || x.AssignedTo == userId).ToList();
+                    return new List<Ticket>();
                 }
 
+                return await _context.Tickets.Where(x => x.CreatedBy == userId || x.AssignedTo== userId).ToListAsync();
+                //var username = User.Identity.Name;
+                //var user = await _context.Users.Where(x => x.UserName == username).FirstOrDefaultAsync();
+                //if (user != null)
+                //{
+                //    var userId = user.Id;
+                //   //list = list.Where(x => x.CreatedBy == userId || x.AssignedTo == userId).ToList();
+                //   return await _context.Tickets
+                //        .Where(x => x.CreatedBy == userId  || x.AssignedTo== userId).ToListAsync();
+                //}
+
             }
-           return list;
+
+            return await _context.Tickets.ToListAsync();
+           //return list;
         }
 
         // GET: api/Tickets/5
@@ -145,6 +157,7 @@ namespace CustomerSupportAPI.Controllers
 
         // POST: api/Tickets
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[Authorize(Roles = "Admin, Customer")]
         [HttpPost]
         public async Task<ActionResult<Ticket>> PostTicket(Ticket ticket)
         {
@@ -154,12 +167,13 @@ namespace CustomerSupportAPI.Controllers
             }
 
             //if(ticket.Status == Enums.TicketStatus.Unknown)
-            //  {
-            //      ticket.Status = Enums.TicketStatus.InProgress;
+            //      {
+            //              ticket.Status = Enums.TicketStatus.InProgress;
             //      }
 
             //ticket.Status = (int)Enums.TicketStatus.InProgress;
             //ticket.Status = (int)Enums.TicketStatus.Completed;
+            ticket.CreatedBy = User.FindFirstValue(ClaimTypes.NameIdentifier);  
 
             ticket.Status = ticket.Status;
             _context.Tickets.Add(ticket);
