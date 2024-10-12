@@ -157,7 +157,7 @@ namespace CustomerSupportAPI.Controllers
 
         // POST: api/Tickets
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[Authorize(Roles = "Admin, Customer")]
+        [Authorize(Roles = "Admin, Customer")]
         [HttpPost]
         public async Task<ActionResult<Ticket>> PostTicket(Ticket ticket)
         {
@@ -166,14 +166,13 @@ namespace CustomerSupportAPI.Controllers
                 return Problem("Entity set 'ApplicationDbContext.Tickets'  is null.");
             }
 
-            //if(ticket.Status == Enums.TicketStatus.Unknown)
-            //      {
-            //              ticket.Status = Enums.TicketStatus.InProgress;
-            //      }
+             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            //ticket.Status = (int)Enums.TicketStatus.InProgress;
-            //ticket.Status = (int)Enums.TicketStatus.Completed;
-            ticket.CreatedBy = User.FindFirstValue(ClaimTypes.NameIdentifier);  
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized("User is not authenticated");
+            }
+            ticket.CreatedBy = userId;
 
             ticket.Status = ticket.Status;
             _context.Tickets.Add(ticket);
