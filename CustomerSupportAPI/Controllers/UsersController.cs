@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CustomerSupportAPI.Data;
 using CustomerSupportAPI.Models;
+using Microsoft.AspNet.Identity;
+
 
 namespace CustomerSupportAPI.Controllers
 {
@@ -20,6 +22,7 @@ namespace CustomerSupportAPI.Controllers
         {
             _context = context;
         }
+      
 
         // GET: api/Users
         [HttpGet]
