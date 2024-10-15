@@ -1,3 +1,10 @@
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.csproj.AssemblyReference.cache
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.GeneratedMSBuildEditorConfig.editorconfig
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.AssemblyInfoInputs.cache
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.AssemblyInfo.cs
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.csproj.CoreCompileInputs.cache
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.MvcApplicationPartsAssemblyInfo.cs
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.MvcApplicationPartsAssemblyInfo.cache
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\appsettings.Development.json
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\appsettings.json
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\CustomerSupportAPI.exe
@@ -10,6 +17,11 @@ E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Humanizer.dll
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\MessagePack.dll
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\MessagePack.Annotations.dll
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.AspNet.Identity.Core.dll
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.CodeAnalysis.AnalyzerUtilities.dll
@@ -35,6 +47,8 @@ E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
@@ -242,13 +256,6 @@ E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
-E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.csproj.AssemblyReference.cache
-E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.GeneratedMSBuildEditorConfig.editorconfig
-E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.AssemblyInfoInputs.cache
-E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.AssemblyInfo.cs
-E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.csproj.CoreCompileInputs.cache
-E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.MvcApplicationPartsAssemblyInfo.cs
-E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.MvcApplicationPartsAssemblyInfo.cache
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\staticwebassets\msbuild.CustomerSupportAPI.Microsoft.AspNetCore.StaticWebAssets.props
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\staticwebassets\msbuild.build.CustomerSupportAPI.props
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.CustomerSupportAPI.props
@@ -263,10 +270,3 @@ E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.pdb
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\CustomerSupportAPI.genruntimeconfig.cache
 E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\obj\Debug\net6.0\ref\CustomerSupportAPI.dll
-E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.AspNet.Identity.Core.dll
-E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
-E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
-E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
-E:\AB Projects Folder\Projectas\CustomerSupportAPI\CustomerSupportAPI\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
