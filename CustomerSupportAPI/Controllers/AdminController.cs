@@ -13,9 +13,9 @@ namespace CustomerSupportAPI.Controllers
     public class AdminController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<CustomerSupportAPI.Models.User> _userManager;
+        private readonly UserManager<User> _userManager;
 
-        public AdminController( ApplicationDbContext context)
+        public AdminController( ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
