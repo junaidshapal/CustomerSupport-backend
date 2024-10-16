@@ -23,7 +23,7 @@ namespace CustomerSupportAPI.Controllers
 
         public TicketsController(ApplicationDbContext context)
         {
-            _context = context;
+            _context = context; 
         }
 
         // GET: api/Tickets
