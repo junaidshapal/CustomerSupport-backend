@@ -167,6 +167,12 @@ namespace CustomerSupportAPI.Controllers
             }
 
              var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _context.Users.FindAsync(userId);
+
+            if (user == null || !user.IsApproved)
+            {
+                return Forbid("You are not approved to create tickets");
+            }
 
             if (string.IsNullOrEmpty(userId))
             {
