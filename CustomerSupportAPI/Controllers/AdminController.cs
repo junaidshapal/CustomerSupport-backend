@@ -48,20 +48,20 @@ namespace CustomerSupportAPI.Controllers
 
         [HttpPost("approve-user/{userId}")]
        
-        public async Task<IActionResult> ApproveUsers(string userId)
+        public async Task<IActionResult> ApproveUser(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
-            {
+            
                 return NotFound("User not found");
-            }
+            
 
-            user.IsApproved= true;
+            user.IsApproved = true;
             await _userManager.UpdateAsync(user);
 
 
-            return Ok("User approved Successfully");
+            return Ok(new { message = "User approved Successfully" }  );
         }
 
 
