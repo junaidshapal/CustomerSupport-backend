@@ -11,6 +11,8 @@ using CustomerSupportAPI.DataTransferObjects;
 using CustomerSupportAPI.Enums;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace CustomerSupportAPI.Controllers
 {
@@ -20,9 +22,10 @@ namespace CustomerSupportAPI.Controllers
     public class TicketsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-
-        public TicketsController(ApplicationDbContext context)
+        private readonly UserManager<User> _userManager;
+        public TicketsController(ApplicationDbContext context, UserManager<User> userManager)
         {
+            _userManager = userManager;
             _context = context; 
         }
 
@@ -163,29 +166,41 @@ namespace CustomerSupportAPI.Controllers
         {
             if (_context.Tickets == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Tickets'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Tickets' is null.");
             }
 
-             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var user = await _context.Users.FindAsync(userId);
-
-            if (user == null || !user.IsApproved)
-            {
-                return Forbid("You are not approved to create tickets");
-            }
-
+            // Get the user making the request
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
             {
-                return Unauthorized("User is not authenticated");
+                return Unauthorized("User is not authenticated.");
             }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            Console.WriteLine($"UserId from token: {userId}");
+
+            if (user == null)
+            {
+                return Forbid("User not found.");
+            }
+
+            // Skip approval check if the user is an Admin
+            var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+            if (!isAdmin && !user.IsApproved)
+            {
+                return Forbid("You are not approved to create tickets.");
+            }
+
+            // Set the ticket's creator
             ticket.CreatedBy = userId;
 
-            ticket.Status = ticket.Status;
+            // Add and save the ticket
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTicket", new { id = ticket.Id }, ticket);
         }
+
 
         // DELETE: api/Tickets/5
         [HttpDelete("{id}")]

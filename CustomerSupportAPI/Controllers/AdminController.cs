@@ -48,7 +48,7 @@ namespace CustomerSupportAPI.Controllers
 
         [HttpPost("approve-user/{userId}")]
        
-        public async Task<IActionResult> ApproveUser(string userId)
+        public async Task<IActionResult> ApproveUsers(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
 
