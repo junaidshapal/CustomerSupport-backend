@@ -10,7 +10,7 @@ namespace CustomerSupportAPI.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-
+        //HIGHGHJGHJGHGHJHGJHGH
         //public DbSet<User> Users { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<TicketComment> TicketComment { get; set; }
