@@ -1,87 +1,90 @@
-﻿using CustomerSupportAPI.Data;
-using CustomerSupportAPI.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿//using CustomerSupportAPI.Data;
+//using CustomerSupportAPI.Models;
+//using Microsoft.AspNetCore.Http;
+//using Microsoft.AspNetCore.Identity;
+//using Microsoft.AspNetCore.Mvc;
+//using Microsoft.EntityFrameworkCore;
 
-namespace CustomerSupportAPI.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AdminController : ControllerBase
-    {
-        private readonly ApplicationDbContext _context;
-        private readonly UserManager<User> _userManager;
+//namespace CustomerSupportAPI.Controllers
+//{
+//    [Route("api/[controller]")]
+//    [ApiController]
+//    public class AdminController : ControllerBase
+//    {
+//        private readonly ApplicationDbContext _context;
+//        private readonly UserManager<User> _userManager;
 
-        public AdminController( ApplicationDbContext context, UserManager<User> userManager)
-        {
-            _context = context;
-            _userManager = userManager;
-        }
+//        public AdminController( ApplicationDbContext context, UserManager<User> userManager)
+//        {
+//            _context = context;
+//            _userManager = userManager;
+//        }
 
-        [HttpGet("get-all-users")]
-        public async Task<IActionResult> GetAllUsers()
-        {
+//        [HttpGet("get-all-users")]
+//        public async Task<IActionResult> GetAllUsers()
+//        {
 
-            var allUsers = await _userManager.Users.ToListAsync();
+//            var allUsers = await _userManager.Users.ToListAsync();
 
-            var users = new List<object>();
+//            var users = new List<object>();
 
-            foreach (var user in allUsers)
-            {
-                if (!await _userManager.IsInRoleAsync(user, "Admin"))
-                {
-                    users.Add(new
-                    {
-                        user.Id,
-                        user.UserName,
-                        user.Email,
-                        user.IsApproved
-                    });
-                }
-            }
+//            foreach (var user in allUsers)
+//            {
+//                if (!await _userManager.IsInRoleAsync(user, "Admin"))
+//                {
+//                    users.Add(new
+//                    {
+//                        user.Id,
+//                        user.UserName,
+//                        user.Email,
+//                        user.IsApproved
+//                    });
+//                }
+//            }
 
-            return Ok(users);
-        }
+//            return Ok(users);
+//        }
 
 
-        [HttpPost("approve-user/{userId}")]
+//        [HttpPost("approve-user/{userId}")]
        
-        public async Task<IActionResult> ApproveUsers(string userId)
-        {
-            var user = await _userManager.FindByIdAsync(userId);
+//        public async Task<IActionResult> ApproveUsers(string userId)
+//        {
+//            var user = await _userManager.FindByIdAsync(userId);
 
-            if (user == null)
+//            if (user == null)
             
-                return NotFound("User not found");
+//                return NotFound("User not found");
             
 
-            user.IsApproved = true;
-            await _userManager.UpdateAsync(user);
+//            //user.IsApproved = true;
+//           var result =  await _userManager.UpdateAsync(user);
+//            if (result.Succeeded)
+//            {
+//                return Ok(new { message = "User Approved" });
+//            }
+
+//            return BadRequest(new { message = "User not approved Successfully" }  );
+//        }
 
 
-            return Ok(new { message = "User approved Successfully" }  );
-        }
+//        [HttpPost("block-user/{userId}")]
 
+//        public async Task<IActionResult>BlockUser(string userId)
+//        {
+//            var user = await _userManager.FindByIdAsync(userId);
 
-        [HttpPost("block-user/{userId}")]
+//            if (user == null)
+//            {
+//                return NotFound("User not found");
+//            }
 
-        public async Task<IActionResult>BlockUser(string userId)
-        {
-            var user = await _userManager.FindByIdAsync(userId);
+//            //user.IsApproved= false;
 
-            if (user == null)
-            {
-                return NotFound("User not found");
-            }
+//            await _userManager.UpdateAsync(user);
 
-            user.IsApproved= false;
+//            return Ok("User blocked");
+//        }
+//    }
 
-            await _userManager.UpdateAsync(user);
-
-            return Ok("User blocked");
-        }
-    }
-
-}
+//}

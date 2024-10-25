@@ -169,32 +169,28 @@ namespace CustomerSupportAPI.Controllers
                 return Problem("Entity set 'ApplicationDbContext.Tickets' is null.");
             }
 
-            // Get the user making the request
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (string.IsNullOrEmpty(userId))
-            {
-                return Unauthorized("User is not authenticated.");
-            }
-
             var user = await _userManager.FindByIdAsync(userId);
-            Console.WriteLine($"UserId from token: {userId}");
 
             if (user == null)
             {
                 return Forbid("User not found.");
             }
 
-            // Skip approval check if the user is an Admin
-            var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
-            if (!isAdmin && !user.IsApproved)
+            //Bypass IsApproved check for Admin users
+            var roles = await _userManager.GetRolesAsync(user);
+            //if (!roles.Contains("Admin") && !user.IsApproved)
+            //{
+            //    return Forbid("You are not approved to create tickets.");
+            //}
+
+            if (string.IsNullOrEmpty(userId))
             {
-                return Forbid("You are not approved to create tickets.");
+                return Unauthorized("User is not authenticated");
             }
 
-            // Set the ticket's creator
             ticket.CreatedBy = userId;
-
-            // Add and save the ticket
+            ticket.Status = ticket.Status;
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
 

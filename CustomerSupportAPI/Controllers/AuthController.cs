@@ -20,10 +20,10 @@ namespace CustomerSupportAPI.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly IConfiguration _configuration; 
+        private readonly IConfiguration _configuration;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AuthController(UserManager<User> userManager,IConfiguration configuration, SignInManager<User> signInManager,
+        public AuthController(UserManager<User> userManager, IConfiguration configuration, SignInManager<User> signInManager,
             RoleManager<IdentityRole> roleManager)
 
         {
@@ -42,14 +42,20 @@ namespace CustomerSupportAPI.Controllers
 
             try
             {
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
-                    var user = new User { UserName = model.Email, Email = model.Email };
+                    var user = new User
+                    {
+                        UserName = model.Email,
+                        Email = model.Email,
+                        //IsApproved = model.Role == "Admin" ? true : false
+
+                    };
                     var result = await _userManager.CreateAsync(user, model.Password);
 
                     if (result.Succeeded)
                     {
-                        if(!await _roleManager.RoleExistsAsync(model.Role))
+                        if (!await _roleManager.RoleExistsAsync(model.Role))
                         {
                             await _roleManager.CreateAsync(new IdentityRole(model.Role));
                         }
@@ -67,18 +73,71 @@ namespace CustomerSupportAPI.Controllers
 
                 return BadRequest(ex.Message);
             }
-            
+
         }
 
+
+        //    [HttpPost("login")]
+        //    public async Task<IActionResult> Login([FromBody] LoginModel login)
+        //    {
+        //        var user = await _userManager.FindByNameAsync(login.UserName);
+        //        if(user == null)
+        //        {
+        //            return Unauthorized("User is null here");
+        //        }
+        //        var loginResult = await _userManager.CheckPasswordAsync(user, login.Password);
+
+        //        if (!loginResult)
+        //        {
+        //            return Unauthorized("Password is not correct");
+        //        }
+
+        //        var userRoles = await _userManager.GetRolesAsync(user);
+
+        //        //if (user != null && loginResult)
+        //        //{
+        //            var authClaims = new List<Claim>
+        //            {
+        //                new Claim(ClaimTypes.Name, user.UserName),
+        //                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+        //                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+        //                new Claim(ClaimTypes.NameIdentifier, user.Id)
+        //            };
+
+        //        foreach (var role in userRoles)
+        //        {
+        //            authClaims.Add(new Claim(ClaimTypes.Role, role));
+        //        }
+
+        //            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@123"));
+        //            var token = new JwtSecurityToken(
+        //                 issuer: "http://localhost:4200",
+        //                audience: "http://localhost:4200",
+        //                expires: DateTime.Now.AddHours(3),
+        //                claims: authClaims,
+        //                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+        //            );
+
+        //            return Ok(new
+        //            {
+        //                token = new JwtSecurityTokenHandler().WriteToken(token),
+        //                expiration = token.ValidTo
+        //            });
+        //        }
+
+        //        //return Unauthorized();
+        //   // }
+        //}
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel login)
         {
             var user = await _userManager.FindByNameAsync(login.UserName);
-            if(user == null)
+            if (user == null)
             {
                 return Unauthorized("User is null here");
             }
+
             var loginResult = await _userManager.CheckPasswordAsync(user, login.Password);
 
             if (!loginResult)
@@ -88,38 +147,34 @@ namespace CustomerSupportAPI.Controllers
 
             var userRoles = await _userManager.GetRolesAsync(user);
 
-            //if (user != null && loginResult)
-            //{
-                var authClaims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim(ClaimTypes.NameIdentifier, user.Id)
-                };
+            var authClaims = new List<Claim>
+    {
+        new Claim(ClaimTypes.Name, user.UserName),
+        new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+        new Claim(ClaimTypes.NameIdentifier, user.Id) // Use user.Id here, not UserName
+    };
 
             foreach (var role in userRoles)
             {
                 authClaims.Add(new Claim(ClaimTypes.Role, role));
             }
 
-                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@123"));
-                var token = new JwtSecurityToken(
-                     issuer: "http://localhost:4200",
-                    audience: "http://localhost:4200",
-                    expires: DateTime.Now.AddHours(3),
-                    claims: authClaims,
-                    signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-                );
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@123"));
 
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
-                });
-            }
+            var token = new JwtSecurityToken(
+                issuer: "http://localhost:4200",
+                audience: "http://localhost:4200",
+                expires: DateTime.Now.AddHours(3),
+                claims: authClaims,
+                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+            );
 
-            //return Unauthorized();
-       // }
+            return Ok(new
+            {
+                token = new JwtSecurityTokenHandler().WriteToken(token),
+                expiration = token.ValidTo
+            });
+        }
     }
 }
