@@ -1,9 +1,9 @@
-﻿using CustomerSupportAPI.Data;
-using CustomerSupportAPI.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿//using CustomerSupportAPI.Data;
+//using CustomerSupportAPI.Models;
+//using Microsoft.AspNetCore.Http;
+//using Microsoft.AspNetCore.Identity;
+//using Microsoft.AspNetCore.Mvc;
+//using Microsoft.EntityFrameworkCore;
 
 //namespace CustomerSupportAPI.Controllers
 //{
@@ -47,15 +47,15 @@ using Microsoft.EntityFrameworkCore;
 
 
 //        [HttpPost("approve-user/{userId}")]
-
+       
 //        public async Task<IActionResult> ApproveUsers(string userId)
 //        {
 //            var user = await _userManager.FindByIdAsync(userId);
 
 //            if (user == null)
-
+            
 //                return NotFound("User not found");
-
+            
 
 //            //user.IsApproved = true;
 //           var result =  await _userManager.UpdateAsync(user);
