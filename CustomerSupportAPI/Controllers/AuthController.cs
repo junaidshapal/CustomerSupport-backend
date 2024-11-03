@@ -148,12 +148,12 @@ namespace CustomerSupportAPI.Controllers
             var userRoles = await _userManager.GetRolesAsync(user);
 
             var authClaims = new List<Claim>
-    {
-        new Claim(ClaimTypes.Name, user.UserName),
-        new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-        new Claim(ClaimTypes.NameIdentifier, user.Id) // Use user.Id here, not UserName
-    };
+            {
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id) // Use user.Id here, not UserName
+            };
 
             foreach (var role in userRoles)
             {
