@@ -160,12 +160,12 @@ namespace CustomerSupportAPI.Controllers
                 authClaims.Add(new Claim(ClaimTypes.Role, role));
             }
 
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@123"));
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@12"));
 
             var token = new JwtSecurityToken(
                 issuer: "http://localhost:4200",
                 audience: "http://localhost:4200",
-                expires: DateTime.Now.AddHours(3),
+                expires: DateTime.Now.AddHours(4),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
             );
