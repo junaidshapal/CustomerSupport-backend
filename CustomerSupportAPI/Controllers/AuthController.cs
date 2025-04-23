@@ -37,45 +37,7 @@ namespace CustomerSupportAPI.Controllers
 
         [HttpPost("register")]
 
-        public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
-        {
-
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var user = new User
-                    {
-                        UserName = model.Email,
-                        Email = model.Email,
-                        //IsApproved = model.Role == "Admin" ? true : false
-
-                    };
-                    var result = await _userManager.CreateAsync(user, model.Password);
-
-                    if (result.Succeeded)
-                    {
-                        if (!await _roleManager.RoleExistsAsync(model.Role))
-                        {
-                            await _roleManager.CreateAsync(new IdentityRole(model.Role));
-                        }
-
-                        await _userManager.AddToRoleAsync(user, model.Role);
-                        return Ok(model);
-                    }
-
-                    return BadRequest(result.Errors);
-                }
-                return BadRequest(model);
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(ex.Message);
-            }
-
-        }
-
+      
 
         //    [HttpPost("login")]
         //    public async Task<IActionResult> Login([FromBody] LoginModel login)
