@@ -132,7 +132,11 @@ namespace CustomerSupportAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel login)
         {
-           
+            var user = await _userManager.FindByNameAsync(login.UserName);
+            if (user == null)
+            {
+                return Unauthorized("User is null here");
+            }
 
             var loginResult = await _userManager.CheckPasswordAsync(user, login.Password);
 
